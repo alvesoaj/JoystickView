@@ -1,7 +1,5 @@
 package com.zerokol.joystick.views;
 
-import com.zerokol.views.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
