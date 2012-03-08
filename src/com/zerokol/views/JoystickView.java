@@ -13,6 +13,14 @@ public class JoystickView extends View implements Runnable {
 	// Constants
 	private final double RAD = 57.2957795;
 	public final static long DEFAULT_LOOP_INTERVAL = 100;
+	public final static int FRONT = 3;
+	public final static int FRONT_RIGHT = 4;
+	public final static int RIGHT = 5;
+	public final static int RIGHT_BOTTOM = 6;
+	public final static int BOTTOM = 7;
+	public final static int BOTTOM_LEFT = 8;
+	public final static int LEFT = 1;
+	public final static int LEFT_FRONT = 2;
 	// Variables
 	private OnJoystickMoveListener onJoystickMoveListener; // Listener
 	private Thread thread = new Thread(this);
@@ -28,6 +36,8 @@ public class JoystickView extends View implements Runnable {
 	private Paint verticalLine;
 	private int joystickRadius;
 	private int buttonRadius;
+	private int lastAngle = 0;
+	private int lastPower = 0;
 
 	public JoystickView(Context context) {
 		super(context);
@@ -160,8 +170,9 @@ public class JoystickView extends View implements Runnable {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			xPosition = (int) centerX;
 			yPosition = (int) centerY;
-			onJoystickMoveListener.onValueChanged(getAngle(), getPower());
 			thread.interrupt();
+			onJoystickMoveListener.onValueChanged(getAngle(), getPower(),
+					getDirection());
 		}
 		if (onJoystickMoveListener != null
 				&& event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -170,47 +181,75 @@ public class JoystickView extends View implements Runnable {
 			}
 			thread = new Thread(this);
 			thread.start();
-			onJoystickMoveListener.onValueChanged(getAngle(), getPower());
+			onJoystickMoveListener.onValueChanged(getAngle(), getPower(),
+					getDirection());
 		}
 		return true;
 	}
 
-	public int getAngle() {
+	private int getAngle() {
 		if (xPosition > centerX) {
 			if (yPosition < centerY) {
-				return (int) (Math.atan((yPosition - centerY)
+				return lastAngle = (int) (Math.atan((yPosition - centerY)
 						/ (xPosition - centerX))
 						* RAD + 90);
 			} else if (yPosition > centerY) {
-				return (int) (Math.atan((yPosition - centerY)
+				return lastAngle = (int) (Math.atan((yPosition - centerY)
 						/ (xPosition - centerX)) * RAD) + 90;
 			} else {
-				return 90;
+				return lastAngle = 90;
 			}
 		} else if (xPosition < centerX) {
 			if (yPosition < centerY) {
-				return (int) (Math.atan((yPosition - centerY)
+				return lastAngle = (int) (Math.atan((yPosition - centerY)
 						/ (xPosition - centerX))
 						* RAD - 90);
 			} else if (yPosition > centerY) {
-				return (int) (Math.atan((yPosition - centerY)
+				return lastAngle = (int) (Math.atan((yPosition - centerY)
 						/ (xPosition - centerX)) * RAD) - 90;
 			} else {
-				return 90;
+				return lastAngle = -90;
 			}
 		} else {
 			if (yPosition <= centerY) {
-				return 0;
+				return lastAngle = 0;
 			} else {
-				return 180;
+				if (lastAngle < 0) {
+					return lastAngle = -180;
+				} else {
+					return lastAngle = 180;
+				}
 			}
 		}
 	}
 
-	public int getPower() {
+	private int getPower() {
 		return (int) (100 * Math.sqrt((xPosition - centerX)
 				* (xPosition - centerX) + (yPosition - centerY)
 				* (yPosition - centerY)) / joystickRadius);
+	}
+
+	private int getDirection() {
+		if (lastPower == 0 && lastAngle == 0) {
+			return 0;
+		}
+		int a = 0;
+		if (lastAngle <= 0) {
+			a = (lastAngle * -1) + 90;
+		} else if (lastAngle > 0) {
+			if (lastAngle <= 90) {
+				a = 90 - lastAngle;
+			} else {
+				a = 360 - (lastAngle - 90);
+			}
+		}
+
+		int direction = (int) (((a + 22) / 45) + 1);
+
+		if (direction > 8) {
+			direction = 1;
+		}
+		return direction;
 	}
 
 	public void setOnJoystickMoveListener(OnJoystickMoveListener listener,
@@ -220,7 +259,7 @@ public class JoystickView extends View implements Runnable {
 	}
 
 	public static interface OnJoystickMoveListener {
-		public void onValueChanged(int angle, int power);
+		public void onValueChanged(int angle, int power, int direction);
 	}
 
 	@Override
@@ -229,7 +268,7 @@ public class JoystickView extends View implements Runnable {
 			post(new Runnable() {
 				public void run() {
 					onJoystickMoveListener.onValueChanged(getAngle(),
-							getPower());
+							getPower(), getDirection());
 				}
 			});
 			try {
