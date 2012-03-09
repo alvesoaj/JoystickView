@@ -38,7 +38,7 @@ Select JoystickView lib and click OK to finish.
 
 From this point you can inflate the JoystickView in your layouts or referencing it in your Activities.
 
-''' java
+```java
 import com.zerokol.views.JoystickView;
 import com.zerokol.views.JoystickView.OnJoystickMoveListener;
 import android.app.Activity;
@@ -104,7 +104,7 @@ public class JoystickViewDemoActivity extends Activity {
 		}, JoystickView.DEFAULT_LOOP_INTERVAL);
 	}
 }
-'''
+```
 
 Right click on your project and go to Properties, the properties tab, select the tab and click on ADD ANDROID.
 
