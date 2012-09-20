@@ -43,9 +43,11 @@ If you want to change or upgrade some feature of the library, you should do:
 
 To use JoystickView in your applications, simply add the lib to the classpath of your application:
 
+7º Passo: Click with right button on your project go to PROPERTIES -> ANDROID and the ADD.
+
 ![zerokol.com](http://2.bp.blogspot.com/-w7W8Gb8kh0I/T1kfgqoNrQI/AAAAAAAAAxA/_0cHWx-ox2E/s320/imp.png)
 
-7º Step: Select JoystickView lib and click OK to finish.
+8º Step: Select JoystickView lib and click OK to finish.
 
 ![zerokol.com](http://1.bp.blogspot.com/-E7M8dJuemEU/T1kfhcZoWmI/AAAAAAAAAxI/Lurmtt5p8l0/s320/imp2.png)
 
