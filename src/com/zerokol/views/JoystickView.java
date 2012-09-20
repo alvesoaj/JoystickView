@@ -1,9 +1,8 @@
 package com.zerokol.views;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -45,51 +44,33 @@ public class JoystickView extends View implements Runnable {
 
 	public JoystickView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		TypedArray a = context.obtainStyledAttributes(attrs,
-				R.styleable.Joystick);
-		initJoystickView(a);
-		a.recycle();
+		initJoystickView();
 	}
 
 	public JoystickView(Context context, AttributeSet attrs, int defaultStyle) {
 		super(context, attrs, defaultStyle);
-		TypedArray a = context.obtainStyledAttributes(attrs,
-				R.styleable.Joystick);
-		initJoystickView(a);
-		a.recycle();
+		initJoystickView();
 	}
 
-	protected void initJoystickView(TypedArray tyArr) {
-		Resources r = this.getResources();
-
+	protected void initJoystickView() {
 		mainCircle = new Paint(Paint.ANTI_ALIAS_FLAG);
-		mainCircle
-				.setColor(tyArr.getColor(R.styleable.Joystick_mainCircleColor,
-						r.getColor(R.color.white)));
+		mainCircle.setColor(Color.WHITE);
 		mainCircle.setStyle(Paint.Style.FILL_AND_STROKE);
 
 		secondaryCircle = new Paint();
-		secondaryCircle.setColor(tyArr.getColor(
-				R.styleable.Joystick_secondaryCircleColor,
-				r.getColor(R.color.green)));
+		secondaryCircle.setColor(Color.GREEN);
 		secondaryCircle.setStyle(Paint.Style.STROKE);
 
 		verticalLine = new Paint();
 		verticalLine.setStrokeWidth(5);
-		verticalLine.setColor(tyArr.getColor(
-				R.styleable.Joystick_secondaryCircleColor,
-				r.getColor(R.color.red)));
+		verticalLine.setColor(Color.RED);
 
 		horizontalLine = new Paint();
 		horizontalLine.setStrokeWidth(2);
-		horizontalLine.setColor(tyArr.getColor(
-				R.styleable.Joystick_secondaryCircleColor,
-				r.getColor(R.color.black)));
+		horizontalLine.setColor(Color.BLACK);
 
 		button = new Paint(Paint.ANTI_ALIAS_FLAG);
-		button.setColor(tyArr.getColor(
-				R.styleable.Joystick_secondaryCircleColor,
-				r.getColor(R.color.red)));
+		button.setColor(Color.RED);
 		button.setStyle(Paint.Style.FILL);
 	}
 
