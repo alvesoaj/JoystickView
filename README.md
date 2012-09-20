@@ -1,6 +1,7 @@
 ![zerokol.com](http://2.bp.blogspot.com/-5iIoZXBw2bg/T1n753kamDI/AAAAAAAAAxo/CjU5hGy4QbY/s400/joystickview-screen.png)
 
 Para modo de uso em Portugês: [JoystickView - Uma view customizada que simula um Joystick no Android.](http://www.zerokol.com/2012/03/joystickview-uma-view-customizada-que.html)
+For more info, go to: [JoystickView - A custom Android View to simulates a Joystickm Joystick no Android ](http://www.zerokol.com/2012/03/joystickview-custom-android-view-to.html)
 
 ## JoystickView - Android
 
