@@ -79,6 +79,18 @@ public class JoystickView extends View implements Runnable {
 	}
 
 	@Override
+	protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld) {
+		super.onSizeChanged(xNew, yNew, xOld, yOld);
+		// before measure, get the center of view
+		xPosition = (int) getWidth() / 2;
+		yPosition = (int) getWidth() / 2;
+		int d = Math.min(xNew, yNew);
+		buttonRadius = (int) (d / 2 * 0.25);
+		joystickRadius = (int) (d / 2 * 0.75);
+
+	}
+
+	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		// setting the measured values to resize the view to a certain width and
 		// height
@@ -86,12 +98,6 @@ public class JoystickView extends View implements Runnable {
 
 		setMeasuredDimension(d, d);
 
-		// before measure, get the center of view
-		xPosition = (int) getWidth() / 2;
-		yPosition = (int) getWidth() / 2;
-
-		buttonRadius = (int) (d / 2 * 0.25);
-		joystickRadius = (int) (d / 2 * 0.75);
 	}
 
 	private int measure(int measureSpec) {
@@ -152,8 +158,9 @@ public class JoystickView extends View implements Runnable {
 			xPosition = (int) centerX;
 			yPosition = (int) centerY;
 			thread.interrupt();
-			onJoystickMoveListener.onValueChanged(getAngle(), getPower(),
-					getDirection());
+			if (onJoystickMoveListener != null)
+				onJoystickMoveListener.onValueChanged(getAngle(), getPower(),
+						getDirection());
 		}
 		if (onJoystickMoveListener != null
 				&& event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -162,8 +169,9 @@ public class JoystickView extends View implements Runnable {
 			}
 			thread = new Thread(this);
 			thread.start();
-			onJoystickMoveListener.onValueChanged(getAngle(), getPower(),
-					getDirection());
+			if (onJoystickMoveListener != null)
+				onJoystickMoveListener.onValueChanged(getAngle(), getPower(),
+						getDirection());
 		}
 		return true;
 	}
@@ -248,8 +256,9 @@ public class JoystickView extends View implements Runnable {
 		while (!Thread.interrupted()) {
 			post(new Runnable() {
 				public void run() {
-					onJoystickMoveListener.onValueChanged(getAngle(),
-							getPower(), getDirection());
+					if (onJoystickMoveListener != null)
+						onJoystickMoveListener.onValueChanged(getAngle(),
+								getPower(), getDirection());
 				}
 			});
 			try {
