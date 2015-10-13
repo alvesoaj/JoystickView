@@ -247,7 +247,7 @@ public class JoystickView extends View implements Runnable {
 		this.loopInterval = repeatInterval;
 	}
 
-	public static interface OnJoystickMoveListener {
+	public interface OnJoystickMoveListener {
 		public void onValueChanged(int angle, int power, int direction);
 	}
 
