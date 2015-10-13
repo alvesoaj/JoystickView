@@ -135,6 +135,5 @@ Permissions beyond the scope of this license may be available at [http://github.
 
 ## Special Thanks to:
 
-@mksmbrtsh
-
-@Mayco-Anderson
+### @mksmbrtsh (https://github.com/mksmbrtsh)
+### @Mayco-Anderson (https://github.com/Mayco-Anderson)
