@@ -1,4 +1,4 @@
-package com.zerokol.views.joysticView;
+package com.zerokol.views.joystickView;
 
 import org.junit.Test;
 

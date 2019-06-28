@@ -7,122 +7,246 @@ For more info, go to: [JoystickView - A custom Android View to simulates a Joyst
 ## JoystickView - Android
 
 Android JoystickView is a Custom View that simulates a Joystick for interactive applications for Android, 
-as simple aim is allows access values ​​of angle and power of the virtual Joystck movement.
+as simple aim is allows access values ​​of angle and power of the virtual Joystick movement.
 
 ### Usage
 
 ### Quick Usage
 
-1º Step: Download the JAR file at [download](https://github.com/downloads/zerokol/JoystickView/joystickview.jar)
+Step 1 - Download or Clone the library (using Git, or a zip archive to unzip)
 
-2º Step: Create a folder called "libs" on the root of your project and place the JAR file into.
+Step 2 - Open your project in Android Studio
 
-It's enough to reffer and user the JoystickView library
+Step 3 - Go to File > New > Import Module
 
-### Advanced Usage
+Step 4 - Find and select JoystickView in your project tree
 
-If you want to change or upgrade some feature of the library, you should do:
+Step 5 - Right-click your app in project view and select "Open Module Settings"
 
-1º Step: Clone the project or download this project to your workspace eclipse IDE, then:
+Step 6 - Click the "Dependencies" tab and then the '+' button (Module Dependency)
 
-2º Step Go to eclipse' menu FILE, after IMPORT.
+Step 7 - Select "joystickView"
 
-![zerokol.com](http://3.bp.blogspot.com/-JyhVCfOVVsU/T1kcx_mHozI/AAAAAAAAAwg/vCR7wNkH0r8/s320/fig02.jpg)
+That is all!
 
-3º Step: Now click in "Existing Project into Workspace"
 
-![zerokol.com](http://1.bp.blogspot.com/---LpF1fGsb0/T1kcyoeRt4I/AAAAAAAAAwo/lPH4FOd3lsc/s400/fig03.jpg)
 
-4º Step: Click in Browse e search the source code folder where you placed after clone ou download.
+### SHOW ME THE CODE
 
-![zerokol.com](http://1.bp.blogspot.com/-cjLe2ZmRPyo/T1kczcBbfdI/AAAAAAAAAww/hYVnWf9mtEE/s320/fig04.jpg)
+At this point, you just need to include the View in any layout to start to use the JoystickView, for example:
 
-5º Step: Setup with Next or/and Finish, ant the JoystickView is ready to you use in your applications.
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-![zerokol.com](http://3.bp.blogspot.com/-w6ETTjggahI/T1kc0IDonsI/AAAAAAAAAw4/2r6r-WIxmLU/s320/fig05.jpg)
+    <com.zerokol.views.joystickView.JoystickView
+        android:id="@+id/joystickView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-6º Step: Import JoystickView in your applications.
+</android.support.constraint.ConstraintLayout>
+```
 
-To use JoystickView in your applications, simply add the lib to the classpath of your application:
+But certainly you will want to manipulate and extract values from JoystickView, for that you can use this source for a complete reference:
 
-7º Passo: Click with right button on your project go to PROPERTIES -> ANDROID and the ADD.
 
-![zerokol.com](http://2.bp.blogspot.com/-w7W8Gb8kh0I/T1kfgqoNrQI/AAAAAAAAAxA/_0cHWx-ox2E/s320/imp.png)
+activity_main.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/MainLinerLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
-8º Step: Select JoystickView lib and click OK to finish.
+    <com.zerokol.views.joystickView.JoystickView
+        android:id="@+id/joystickView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-![zerokol.com](http://1.bp.blogspot.com/-E7M8dJuemEU/T1kfhcZoWmI/AAAAAAAAAxI/Lurmtt5p8l0/s320/imp2.png)
+    <LinearLayout
+        android:id="@+id/InfoLinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-### SHOW THE CODE
+        <TextView
+            android:id="@+id/rightsTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/rights_lab"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-From this point you can inflate the JoystickView in your layouts or referencing it in your Activities.
+        <TableLayout
+            android:id="@+id/tableLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/angletextViewLab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/angle_lab"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/angleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/none"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/powerTextViewLab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/power_lab"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/powerTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/none"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/directionTextViewLab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/direction_lab"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/directionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/none"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+```
+
+MainActivity.java
 ```java
-import com.zerokol.views.JoystickView;
-import com.zerokol.views.JoystickView.OnJoystickMoveListener;
+package com.zerokol.myapplication;
+
+import com.zerokol.views.joystickView.JoystickView;
+import com.zerokol.views.joystickView.JoystickView.OnJoystickMoveListener;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class JoystickViewDemoActivity extends Activity {
-	private TextView angleTextView;
-	private TextView powerTextView;
-	private TextView directionTextView;
-	// Importing also other views
-	private JoystickView joystick;
+public class MainActivity extends Activity {
+    private TextView angleTextView;
+    private TextView powerTextView;
+    private TextView directionTextView;
+    // Importing also other views
+    private JoystickView joystick;
 
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-		angleTextView = (TextView) findViewById(R.id.angleTextView);
-		powerTextView = (TextView) findViewById(R.id.powerTextView);
-		directionTextView = (TextView) findViewById(R.id.directionTextView);
-		//Referencing also other views
-		joystick = (JoystickView) findViewById(R.id.joystickView);
-        
+        angleTextView = (TextView) findViewById(R.id.angleTextView);
+        powerTextView = (TextView) findViewById(R.id.powerTextView);
+        directionTextView = (TextView) findViewById(R.id.directionTextView);
+        //Referencing also other views
+        joystick = (JoystickView) findViewById(R.id.joystickView);
+
         //Event listener that always returns the variation of the angle in degrees, motion power in percentage and direction of movement
-		joystick.setOnJoystickMoveListener(new OnJoystickMoveListener() {
+        joystick.setOnJoystickMoveListener(new OnJoystickMoveListener() {
 
-			@Override
-			public void onValueChanged(int angle, int power, int direction) {
-				// TODO Auto-generated method stub
-				angleTextView.setText(" " + String.valueOf(angle) + "°");
-				powerTextView.setText(" " + String.valueOf(power) + "%");
-				switch (direction) {
-				case JoystickView.FRONT:
-					directionTextView.setText(R.string.front_lab);
-					break;
-				case JoystickView.FRONT_RIGHT:
-					directionTextView.setText(R.string.front_right_lab);
-					break;
-				case JoystickView.RIGHT:
-					directionTextView.setText(R.string.right_lab);
-					break;
-				case JoystickView.RIGHT_BOTTOM:
-					directionTextView.setText(R.string.right_bottom_lab);
-					break;
-				case JoystickView.BOTTOM:
-					directionTextView.setText(R.string.bottom_lab);
-					break;
-				case JoystickView.BOTTOM_LEFT:
-					directionTextView.setText(R.string.bottom_left_lab);
-					break;
-				case JoystickView.LEFT:
-					directionTextView.setText(R.string.left_lab);
-					break;
-				case JoystickView.LEFT_FRONT:
-					directionTextView.setText(R.string.left_front_lab);
-					break;
-				default:
-					directionTextView.setText(R.string.center_lab);
-				}
-			}
-		}, JoystickView.DEFAULT_LOOP_INTERVAL);
-	}
+            @Override
+            public void onValueChanged(int angle, int power, int direction) {
+                // TODO Auto-generated method stub
+                angleTextView.setText(" " + String.valueOf(angle) + "°");
+                powerTextView.setText(" " + String.valueOf(power) + "%");
+                switch (direction) {
+                    case JoystickView.FRONT:
+                        directionTextView.setText(R.string.front_lab);
+                        break;
+                    case JoystickView.FRONT_RIGHT:
+                        directionTextView.setText(R.string.front_right_lab);
+                        break;
+                    case JoystickView.RIGHT:
+                        directionTextView.setText(R.string.right_lab);
+                        break;
+                    case JoystickView.RIGHT_BOTTOM:
+                        directionTextView.setText(R.string.right_bottom_lab);
+                        break;
+                    case JoystickView.BOTTOM:
+                        directionTextView.setText(R.string.bottom_lab);
+                        break;
+                    case JoystickView.BOTTOM_LEFT:
+                        directionTextView.setText(R.string.bottom_left_lab);
+                        break;
+                    case JoystickView.LEFT:
+                        directionTextView.setText(R.string.left_lab);
+                        break;
+                    case JoystickView.LEFT_FRONT:
+                        directionTextView.setText(R.string.left_front_lab);
+                        break;
+                    default:
+                        directionTextView.setText(R.string.center_lab);
+                }
+            }
+        }, JoystickView.DEFAULT_LOOP_INTERVAL);
+    }
 }
+```
+
+strings.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Application</string>
+    <string name="angle_lab">Angle:</string>
+    <string name="power_lab">Power:</string>
+    <string name="direction_lab">Direc:</string>
+    <string name="none"></string>
+    <string name="front_lab">Front</string>
+    <string name="front_right_lab">Front-Right</string>
+    <string name="right_lab">Right</string>
+    <string name="right_bottom_lab">Right-Bottom</string>
+    <string name="bottom_lab">Bottom</string>
+    <string name="bottom_left_lab">Left-Bottom</string>
+    <string name="left_lab">Left</string>
+    <string name="left_front_lab">Front-Left</string>
+    <string name="center_lab">Center</string>
+    <string name="rights_lab">http://zerokol.com</string>
+
+</resources>
 ```
 
 This is an implementation of a custom android view that works like a Joystick, this view controls two variables, angle motion and power motion of the screen touch.
